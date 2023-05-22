@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link th:href="@{/css/bulkText.css}" rel="stylesheet" />
+
+    <title>Title</title>
+
+    <style>
+
+    </style>
+
+</head>
+<body>
+<div class="wrapper">
+    <div class="commentBoxfloat">
+        <form action="#" th:action="@{/master/bulk}" method="post" th:object="${Announcement}">
+            <fieldset>
+                <div class="form_grp">
+                    <label>Message</label>
+                    <textarea id="userCmnt" th:name="message" placeholder="Write your message here..."></textarea>
+                    <select name="Studentclass">-->
+                                    <option value="All">All</option>
+                                    <option value="1">FORM 1</option>
+                                    <option value="2">FORM 2</option>
+                                    <option value="3">FORM 3</option>
+                                </select><br><hr>
+                </div>
+                <div class="form_grp">
+                    <button type="submit" id="submit">Submit</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+
+
+</div>
+
+</body>
+</html>

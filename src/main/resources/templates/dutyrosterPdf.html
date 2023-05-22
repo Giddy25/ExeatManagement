@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Generate Groups</title>
+</head>
+<body>
+
+
+<h1>Generate Groups</h1>
+<form th:action="@{/generate-groups}" method="get">
+  <label for="start-date">Start Date:</label>
+  <input type="date" id="start-date" name="startDate" required>
+  <label for="end-date">End Date:</label>
+  <input type="date" id="end-date" name="endDate" required>
+  <button type="submit">Generate</button>
+
+</form>
+<form th:action="@{/download-pdf}" method="get">
+  <button type="submit" id="download-pdf">Download PDF</button>
+  <input type="hidden" name="filename" id="pdf-filename" th:value="${pdfFilename}" />
+</form>
+<br>
+<div th:if="${weekGroups}">
+  <table>
+    <thead>
+    <tr>
+      <th>Week</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Teachers</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="weekGroup : ${weekGroups}">
+      <td th:text="${weekGroup.weekNumber}"></td>
+      <td th:text="${weekGroup.startDate}"></td>
+      <td th:text="${weekGroup.endDate}"></td>
+      <td>
+        <ul>
+          <li th:each="teacher : ${weekGroup.teachers}" th:text="${teacher.name}"></li>
+        </ul>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <span ${pdfFilename}></span>
+</div>
+</body>
+</html>

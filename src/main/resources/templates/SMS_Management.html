@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Home</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="css/bootstrap.min.css" type="text/css">
+  <script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+
+  <script th:src="@{/js/jquery-3.6.0.min.js} " type="javascript/text"></script>
+  <script th:src="@{/js/bootstrap.bundle.js} " type="javascript/text"></script>
+
+
+  <style>
+
+            .flex-container{
+                display: flex;
+                background-color:blueviolet;
+                width: 60%;
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+                height: Auto;
+                align-items: center;
+                align-content: space-between;
+                border-radius: 2%;
+
+            }
+            .flex-container div{
+                background-color: yellow;
+                color: black;
+                width: 150px;
+                height: 150px;
+                padding-top: 20px;
+                margin: 0px;
+                font-size: 30px;
+                text-align: center;
+                line-height: 60px;
+
+            }
+
+            .flex-container  a div:hover{
+                background:white;
+                color:  red;
+            }
+            body{
+
+
+            }
+
+        </style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container">
+    <h1 class="navbar-brand"  style="font-size:200%"><img src="images/logo.png" th:src="@{/images/logo3.jpg}" width="50" height="50" alt="alt"/>
+      Student Exeat System
+
+    </h1>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#show" aria-controls="show" aria-expanded="false" aria-label="Toggle navigation">
+      <span class=" navbar-toggler-icon"></span>
+
+    </button>
+    <div class="collapse navbar-collapse" id="show">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class=" nav-item active"  >
+          <a class="nav-link" href="#"> item one</a>
+        </li>
+
+        <li class=" nav-item">
+          <a class="nav-link" href="#">item two</a>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<br><br>
+<div th:if="${param.success}" ><center><div class=" alert alert-success" style="width:55%; align-content: center">Registration success</div></center></div>
+<div th:if="${param.logout}" ><center><div class=" alert alert-success" style="width:55%; align-content: center">Logout success</div></center></div>
+
+<center>
+
+  <div class="flex-container" >
+    <a href="admin" th:href="@{/master/bulkSMS}"  class=" btn ">
+      <div>
+
+        <i class="fa-solid fa-bell fa-2x" style="color: green"> </i><p style="font-size:70%">
+  Announcement
+      </p>
+
+      </div>
+    </a>
+
+    <a th:href="@{/#}"  class=" btn ">
+      <div >
+        <i class="fas fa-users fa-2x" style="color: green"> </i>
+        <p style="font-size:50%">
+          Top Up Credit
+        </p>
+      </div>
+
+    </a>
+
+    <a th:href="@{/#}"  class=" btn ">
+      <div >
+        <i class="fas fa-coins" style="color: green"> </i>
+        <p style="font-size:50%">
+         Check SMS Balance
+        </p>
+      </div>
+
+    </a>
+  </div>
+
+</center>
+</body>
+</html>

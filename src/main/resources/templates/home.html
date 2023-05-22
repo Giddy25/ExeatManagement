@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>HOME</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" type="text/css">
+
+    </head>
+    <body>
+        <div class="container" style="width:450px;height: 620px;justify-content: center">
+
+<!--            <div th:if="${param.success}">-->
+<!--                <div class="alert alert-success"><span>your file</span> has been uploaded successfully</div> -->
+
+<!--            </div>-->
+<!--            <div th:if="${param.fail1}">-->
+<!--                <div class="alert alert-danger">Could not upload the file</div>-->
+<!--                <h3 th:text="${name}"></h3>-->
+
+<!--            </div>-->
+
+<!--            <div th:if="${param.fail2}">-->
+<!--                <div class="alert alert-danger">Please upload an excel file!</div>-->
+<!--                <h3 th:text="${name}"></h3>-->
+
+<!--            </div>-->
+<!--            <form th:action="@{/master/logout}" method="post">-->
+
+<!--                <input class="btn btn-danger" type="submit" value="logout"/>-->
+<!--            </form> -->
+            <br>
+            <form th:action="@{/upload}" th:method="post" enctype="multipart/form-data">
+                <div class=""> 
+                    <input class="form-control" type="file" accept=".xlsx " th:name="file">
+                    <br>
+                    <input value="upload file" type="submit" class="btn btn-success">
+                </div>
+            </form>
+
+            <br>
+           
+
+
+
+</div>
+
+    </body>
+
+</html>

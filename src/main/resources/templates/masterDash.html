@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Master</title>
+
+    <script type="text/javascript" th:src="@{/js/sweetalert2.all.min.js}"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+
+
+    <script type="text/javascript" th:src="@{/js/ExeatDetailCard.js}"></script>
+    <script type="text/javascript" th:src="@{/js/Replace.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/table.css}" href="css/bootstrap.css" type="text/css">
+
+    <style>
+    a.btn-success {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+a.btn:hover {
+  background-color: #0069d9;
+}
+</style>
+
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+
+        <a th:href="@{/master/bulkSMS}"   data-target="#content1" class="btn btn-success replace-link"><i class="fas fa-bell fa-2x" style="color:red"></i>Announce</a><span> <a th:href="@{/master/switchSemester}"  data-target="#content1" class="btn btn-success replace-link"><i class="fa fa-toggle-on  fa-2x" style="color:red"></i>Switch Semester</a></span>
+<div th:if="${param.success}" class="alert alert-success"> Students Uploaded successfully!</div>
+        <div class="nav_icon" onclick="toggleSidebar()">
+            <i class="fa fa-bars"></i>
+        </div>
+
+        <div class="main_greeting">
+            <h3>Hello <span>[[${master.firstName}]]</span></h3>
+            <p>Welcome to HouseMaster dashboard</p>
+        </div>
+        <div class="navbar__right">
+
+
+            <a href="#"> <img width="30" src="/images/admin.jpg" alt="" /></a>
+        </div>
+    </nav>
+
+    <main>
+        <div th:if="${param.sent}" ><center><div class=" alert alert-success" style="width:55%; align-content: center">Messages Sent</div></center></div>
+
+        <div class="main__container" id="content1">
+
+
+            <div class="main-cards" >
+                <a th:href="@{/master/searchStudentTable}"   data-target="#content1" class="btn replace-link">
+               <div class="card">
+                    <i class="fa fa-user fa-2x text-lightblue"> </i>
+                    <div class="card-inner">
+                        <p class="text-primary">Click to issue exeat</p>
+
+                    </div>
+               </div>
+
+                </a>
+<!--               -->
+                <a th:href="@{/master/StudentTable}" class="btn">
+                <div class="card">
+                    <i class="fa fa-user fa-2x text-yellow"> </i>
+                    <div class="card-inner">
+                        <p class="text-primary">Not enough</p>
+                        <span class="font-bold text-title">123</span>
+                    </div>
+                </div>
+                </a>
+                <div class="card card3">
+                    <i class="fa fa-user fa-2x text-green"> </i>
+                    <div class="card-inner">
+                        <p class="text-primary">Not enough</p>
+                        <span class="font-bold text-title">123</span>
+                    </div>
+                </div>
+                <form th:action="@{/masterregister}" method="post" >
+                    <div class="card card4">
+
+                        <i class="fa fa-user fa-2x text-red"> </i>
+                        <div class="card-inner">
+                            <p class="text-primary">House Masters</p>
+                            <span class="font-bold text-title">123</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="charts">
+                <div class="charts_left">
+                    <div class="charts_left-title">
+                        <div>
+                            <h1>Daily Records</h1>
+                            <p>Exeat records</p>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div th:if="${msg2}" >
+
+                            <div class=" alert alert-danger">message not sent!</div></div>
+<!--                        Skipped Rows div-->
+
+
+                        <div  class="table-container table-responsive">
+                            <div th:if="${not #lists.isEmpty(skippedRows)}">
+                                <h3>Skipped rows:</h3>
+                                <ul>
+                                    <li th:each="skippedRow : ${skippedRows}" th:text="${skippedRow}"></li>
+                                </ul>
+                            </div>
+                            <span th:text=${ExeatAlreadyExist}></span>
+
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th style="display:none">ID</th>
+
+                                    <th>Full Name</th>
+                                    <!--                <th>Status</th>-->
+
+                                    <th>Class</th>
+                                    <th>Destination</th>
+                                    <th>Date To Return</th>
+                                    <th STYLE="display:none">Time Remaining  </th>
+                                    <th>Returned</th>
+                                    <th>Action</th>
+                                    <th>Details</th>
+                                    <th>Status</th>
+
+                                </tr>
+                                </thead>
+
+                                <tbody >
+                                <tr th:each="exeat:${exeats}">
+
+
+
+                                    <td style="display:none" th:text="${exeat.exeatID}">
+
+                                    </td>
+                                    <td th:text="${exeat.studentName}">
+
+                                    </td>
+                                    <td th:text="${exeat.studentClass}">
+
+                                    </td>
+
+                                    <td th:text="${exeat.destination}">
+                                    <td th:text="${#temporals.format(exeat.dateToReturn, 'dd/MM/yyyy')}">
+
+                                    </td>
+                                    <td style="display:none" th:text="${exeat.TimeRemain.toDays() + ' days, ' + exeat.TimeRemain.toHoursPart() + 'hours, ' +exeat.TimeRemain.toMinutesPart() + 'minutes'}">
+
+                                    </td>
+
+                                    <td th:text="${exeat.hasReturned}">
+
+                                    </td>
+
+                                    <td><a th:href="@{/master/AlreadyIssuedExeat/{exeatID}/{studentNumber}(exeatID=${exeat.exeatID},studentNumber=${exeat.studentNumber})}" class="btn">Manage</a></td>
+
+                                    <td><a th:href="@{/master/ExeatDetail/{generatedCode}/{studentNumber}(generatedCode=${exeat.generatedCode},studentNumber=${exeat.studentNumber})}" onclick="openPopup(event)" class="btn">Manage</a></td>
+
+
+                                    <td th:text="${exeat.TimeRemain.toSeconds() <0 and !exeat.hasReturned ?'InValid': 'valid'}"  th:style="${exeat.TimeRemain.toSeconds() <0 and !exeat.hasReturned ?'color:red; font-weight:bold; font-size:20px;': 'color:#37BC9B; font-weight:bold; font-size:20px;'}">
+
+                                    </td>
+
+                                </tbody>
+                            </table>
+
+
+
+                            <div class="pagination">
+                                <ul>
+                                    <li th:class="${exeats.hasPrevious() ? '' : 'disabled'}">
+                                        <a th:href="@{${currentPage == 0 ? '/master/MasterDashBoard' : '/master/MasterDashBoard?page=' + (currentPage - 1)}}">Previous</a>
+                                    </li>
+                                    <li th:class="${exeats.hasNext() ? '' : 'disabled'}">
+                                        <a th:href="@{${'/master/MasterDashBoard?page=' + (currentPage + 1)}}">Next</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:none" id="content2" class="charts_right">
+                    <div class="charts_right_title">
+                        <div>
+                            <h1>Stats Reports</h1>
+                            <p>Exeat records</p>
+                        </div>
+                        <i class="fa fa-usd"></i>
+                    </div>
+                    <div class="charts_right_cards">
+                        <div class="card1">
+                            <h1>Total Exeat</h1>
+                            <p>60</p>
+                        </div>
+                        <div class="card2">
+                            <h1>Total Boys</h1>
+                            <p>53</p>
+                        </div>
+                        <div class="card3">
+                            <h1>Total Girls</h1>
+
+                            <p th:text="${countUsers}"></p>
+                        </div>
+                        <div class="card4">
+                            <h1>Not Returned</h1>
+                            <p>8</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="sidebar">
+        <div class="sidebar_title">
+            <div class="sidebar_img">
+                <img src="images/logo3.jpg" alt="" />
+                <h1>SIDGIDCODE</h1>
+            </div>
+            <i
+                    class="fa fa-square-xmark"
+                    id="sidebarIcon"
+                    onclick="closeSidebar()"
+            ></i>
+        </div>
+        <div class="sidebar_menu">
+            <div class="sidebar_link active_menu_link">
+                <i class="fa-solid fa-house"></i>
+                <a href="#">Dashboard</a>
+            </div>
+            <h2>MNG</h2>
+            <div class="sidebar_link">
+                <i class="fa fa-user-secret"></i>
+                <a href="#">Admin Management</a>
+            </div>
+            <div class="sidebar_link">
+                <i class="fa fa-user-circle"></i>
+                <a th:href="@{/Master/StudentRegister}">Student Management</a>
+            </div>
+            <div class="sidebar_link">
+                <i class="fa fa-id-card" aria-hidden="true"></i>
+                <a href="#">Exeat Management</a>
+            </div>
+            <div class="sidebar_link">
+                <i class="fas fa-envelope-open-text"></i>
+                <a th:href="@{/master/SMS_Management}">SMS Management</a>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="main-title">
+                <img border-radius="50%" src="/images/admin.jpg" alt="" />
+
+            </div>
+
+            <br>
+            <br>
+            <form th:action="@{/master/logout}" method="post">
+
+                <input class="sidebar_logout btn-danger" type="submit" value="logout"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</html>

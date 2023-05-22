@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link th:href="@{/css/AdminRegistration.css}" rel="stylesheet" />
+    <title>ADMIN REGISTER</title>
+</head>
+<body>
+<div class="container">
+    <div class="title">Registration</div>
+    <div class="content">
+        <form th:action="@{/process_register}" method="post" th:object="${admin}">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Full Name</span>
+                    <input type="text" placeholder="Enter your name"  name="name" required />
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Email</span>
+                    <input type="text" placeholder="Enter your email"  name="email" required />
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Password</span>
+                    <input type="text" placeholder="Enter your password"  name="password"  required autofocus="autofocus"/>
+                </div>
+                <div class="input-box">
+                    <span class="details">Confirm Password</span>
+                    <input type="text" placeholder="Confirm your password" required />
+                </div>
+            </div>
+
+            <div class="button">
+                <input type="submit" value="Register" />
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head><meta  charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link th:href="@{/css/cardstyle.css}" rel="stylesheet" />
+  <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+
+  <script type="text/javascript" th:src="@{/js/popup.js}"></script>
+
+  <title>Document</title>
+  <style>
+      #image-label {
+      cursor: pointer;
+      }
+
+      #image-preview {
+
+      width: 160px;
+      height: 160px;
+      margin-top: 12px;
+      margin-left: 80px;
+      border-radius: 50%;
+
+      border: 4px solid #ddd;
+      background-size: cover;
+      background-position: center;
+      }
+
+      #image-preview:hover {
+      opacity: 0.7;
+      cursor: pointer;
+      }
+       #uploadButton {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove border */
+    color: white; /* White text */
+    margin:10px auto;
+    padding: 12px 24px; /* Add some padding */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make the button a block element */
+    font-size: 16px; /* Increase font size */
+    margin-top: 10px; /* Add some space above the button */
+    cursor: pointer; /* Change cursor on hover */
+  }
+
+  #uploadButton:hover {
+    background-color: #3e8e41; /* Darker green on hover */
+  }
+      </style>
+</head>
+<body>
+<div class="ExeatContainer">
+
+  <div class="wrapper">
+    <form th:action="@{/master/FullStudentUpdate/{studentID}(studentID=${student.studentID})}" th:method="post" th:object="${student}" enctype="multipart/form-data">
+      <input type="file" id="image-upload" name="image-upload" style="display:none" onchange="previewImage()">
+
+
+
+
+
+    <div class="content">
+      <img id="image-preview" style="display:none">
+      <label for="image-upload" id="image-label"><img th:if="${student.imagePath}" th:src="@{'/' + ${student.imagePath}}" alt="Student Photo"><img th:unless="${student.imagePath}" src="/images/thumbNail2.jpg"  style="border: 2px solid #ccc;" alt="Student Photo"/></label>
+
+      <h2> <input
+
+              type="text"
+              name="StudentNumber"
+              th:value="${student.studentNumber}"
+              required />
+        </h2><br/>
+      <h2><input
+
+              type="text"
+              name="StudentName"
+              th:value="${student.studentName}"
+              required /></h2>
+      <br/>
+      <h2><input
+
+              type="text"
+              name="sex"
+              th:value="${student.sex}"
+              required /></h2>
+      <br/>
+      <p>
+        <select class=" form-select-sm" name="house">
+
+          <option name="house" th:each="house:${houses}" th:text="${house.houseName}" th:value="${house.houseID}">House</option>
+
+
+        </select><br><br></p>
+      <p><input
+
+              type="text"
+              name="studentClass"
+              th:value="${student.studentClass}"
+              required /></tr></p>
+      <div class="footer">
+       <div> <input
+
+                type="text"
+                name="ParentContact"
+                th:value="${student.parentContact}"
+                required /></div>
+
+      <div>
+
+        <button class="ExeatCard" id="uploadButton"  type="submit">
+          Update
+        </button>
+      </div>
+
+
+    </div>
+  </div>
+    </form>
+</div>
+
+</div>
+
+</body>
+
+<script>
+  function previewImage() {
+    var preview = document.querySelector('#image-preview');
+    var fileInput = document.querySelector('#image-upload');
+    var label = document.querySelector('#image-label');
+
+
+    if (fileInput.files && fileInput.files[0]) {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+
+            label.style.display = 'none';
+            preview.onclick = function(){
+            fileInput.value='';
+            preview.style.display = 'none';
+
+            label.style.display = 'block';
+
+        };
+        }
+        reader.readAsDataURL(fileInput.files[0]);
+    } else {
+        preview.src = '';
+        preview.style.display = 'none';
+        label.style.display = 'block';
+
+    }
+}
+</script>
+</html>

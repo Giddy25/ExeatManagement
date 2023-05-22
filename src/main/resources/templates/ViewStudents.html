@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Students</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" th:href="@{/css/all.min.css}" href="css/all.min.css" type="text/css">
+    </head>
+    <body>
+        <div class="container" style="width: 70%">
+        <div style="text-align: center"> LIST OF ALL STUDENTS</div>
+        <div>
+
+            <table class="table table-striped-columns table-danger table-responsive-md table-hover table-success">
+                
+                <thead >
+                    <tr>
+                        <td>
+                            id  
+                        </td>
+                        <td>
+                            Name 
+                        </td>
+                        <td>
+                            House  
+                        </td>
+                        <td>
+                            Number
+                        </td>
+                        <td>
+                            Class  
+                        </td>
+                        <td>
+                            Gender
+                        </td>
+                        <td>
+                            Image  
+                        </td>
+
+                    </tr>  
+                     </thead>
+                <tbody th:each="student:${allStudents}">
+                <td th:text="${student.studentID}">
+
+                </td>  
+                <td th:text="${student.studentName}">
+
+                </td>
+                <td th:text="${student.house}">
+
+                </td> 
+                <td th:text="${student.parentContact}">
+
+                </td>
+                <td th:text="${student.studentClass}">
+
+                </td>
+                <td th:text="${student.gender}">
+
+                </td>
+                <td th:text="${student.image}">
+
+                </td>
+                </tbody>
+               
+            </table> 
+
+
+        </div>
+    </body>
+</div>   
+</html>

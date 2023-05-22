@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/table.css}" href="css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div class="table-container">
+  <table>
+    <thead>
+    <tr>
+      <th style="display:none">#</th>
+      <th>Full Name</th>
+      <th>Age</th>
+      <th>Status</th>
+      <th>Job Title</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td>1</td>
+      <td>Ravi Ranjan Prakash</td>
+      <td>31</td>
+      <td><span class="label label-success">Active</span></td>
+      <td>iOS Developer</td>
+      <td><a href="#" class="btn">Manage</a></td>
+    </tr>
+
+    <tr>
+      <td>2</td>
+      <td>Ram Sundar Singh</td>
+      <td>25</td>
+      <td><span class="label label-warning">Inactive</span></td>
+      <td>UI/UX Developer</td>
+      <td><a href="#" class="btn">Manage</a></td>
+    </tr>
+
+    <tr>
+      <td>3</td>
+      <td>Rajiv Kumar Singh</td>
+      <td>26</td>
+      <td><span class="label label-success">active</span></td>
+      <td>Frontend Developer</td>
+      <td><a href="#" class="btn">Manage</a></td>
+    </tr>
+
+    <tr>
+      <td>4</td>
+      <td>Hetansh Kumar Singh</td>
+      <td>29</td>
+      <td><span class="label label-danger">Blocked</span></td>
+      <td>Web Desingner</td>
+      <td><a href="#" class="btn">Manage</a></td>
+    </tr>
+
+
+
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

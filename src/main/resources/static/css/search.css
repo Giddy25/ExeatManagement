@@ -1,0 +1,23 @@
+* {
+   font-family: 'Poppins', sans-serif;
+   padding: 0;
+   margin: 0;
+  }
+  body {
+   background: #f2f4f6;
+  }
+  .search-container {
+      max-width: 600px;
+      margin: 25px 50px;
+  }
+  input[type="text"] {
+      display: block;
+      width: calc(65% - 15px); /*20px [ left & Right ] padding + 4px border [ left & Right ] */
+      font-size: 18px;
+
+      font-weight: 600;
+      color: #4b00ff;
+      padding: 10px;
+      border: 2px solid #4b00ff;
+  }
+    }

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="css/bootstrap.min.css" type="text/css">
+    <script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+
+    <script th:src="@{/js/jquery-3.6.0.min.js} " type="javascript/text"></script>
+    <script th:src="@{/js/bootstrap.bundle.js} " type="javascript/text"></script>
+
+
+    <style>
+
+            .flex-container{
+                display: flex;
+                background-color:blue-violet;
+                width: 60%;
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+                height: 400px;
+                align-items: center;
+                align-content: space-between;
+                border-radius: 2%;
+
+            }
+            .flex-container div{
+                background-color: yellow;
+                color: black;
+                width: 150px;
+                height: 150px;
+                padding-top: 20px;
+                margin: 0px;
+                font-size: 30px;
+                text-align: center;
+                line-height: 60px;
+
+            }
+
+            .flex-container  a div:hover{
+                background:white;
+                color:  red;
+            }
+            body{
+
+
+            }
+
+        </style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <h1 class="navbar-brand"  style="font-size:200%"><img src="images/logo.png" th:src="@{/images/logo3.jpg}" width="50" height="50" alt="alt"/>
+            Student Exeat System
+
+        </h1>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#show" aria-controls="show" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=" navbar-toggler-icon"></span>
+
+        </button>
+        <div class="collapse navbar-collapse" id="show">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class=" nav-item active"  >
+                    <a class="nav-link" href="#"> item one</a>
+                </li>
+
+                <li class=" nav-item">
+                    <a class="nav-link" href="#">item two</a>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<br><br>
+
+<center>
+
+    <h1>MASTERS ON DUTY</h1>
+    <br>
+    <form th:action="@{/dutyRoster}" method="get">
+        <label for="start-date">Start Date:</label>
+        <input type="date" id="start-date" name="startDate" required>
+        <label for="end-date">End Date:</label>
+        <input type="date" id="end-date" name="endDate" required>
+        <button type="submit">Generate</button>
+    </form>
+    <br>
+    </form>
+    <form th:action="@{/download-pdf}" method="get">
+        <button th:if="${pdfFilename}" type="submit" id="download-pdf">Download PDF</button>
+        <input type="hidden" name="filename" id="pdf-filename"  th:value="${pdfFilename}" />
+    </form>
+    <br>
+    <div th:if="${weekGroups}">
+        <table>
+            <thead>
+            <tr>
+                <th>Week</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Teachers</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="weekGroup : ${weekGroups}">
+                <td th:text="${weekGroup.weekNumber}"></td>
+                <td th:text="${weekGroup.startDate}"></td>
+                <td th:text="${weekGroup.endDate}"></td>
+                <td>
+                    <ul>
+                        <li th:each="teacher : ${weekGroup.teachers}" th:text="${teacher.name}"></li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <span ${pdfFilename}></span>
+    </div>
+
+</center>
+</body>
+</html>

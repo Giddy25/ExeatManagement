@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+
+
+
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+  <link rel="stylesheet" th:href="@{/css/StudentTable.css}" type="text/css">
+
+
+ 
+
+</head>
+<body>
+
+
+<div class="table-container">
+
+  <table id="search-results">
+    <thead th:if="${students}">
+    <tr >
+      <th style="display:none">ID</th>
+      <th>Student Number</th>
+      <th>Full Name</th>
+      <!--                <th>Status</th>-->
+      <th>ParentContact</th>
+      <th>Class</th>
+      <th>House</th>
+      <th>Action</th>
+      <th>Action</th>
+      <th>Edit</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="student:${students}">
+      <td style="display:none" th:text="${student.studentID}">
+
+      </td>
+      <td th:text="${student.studentNumber}">
+
+      </td>
+      <td th:text="${student.studentName}">
+
+      </td>
+
+      <td th:text="${student.parentContact}">
+
+      </td>
+      <td th:text="${student.studentClass}">
+
+      </td>
+      <td th:text="${studentHouse}">
+
+      </td>
+
+      <td><a th:href="@{/master/ShowExeatCard/{studentNumber}(studentNumber=${student.studentNumber})}" class="btn" >ISSUE</a></td>
+      <td><a th:href="@{/master/ShowEmergencyExeatCard/{studentNumber}(studentNumber=${student.studentNumber})}" class="btn">EMERGENCY</a></td>
+      <td><a th:href="@{/master/UpdateFullExeatForm/{studentID}(studentID=${student.studentID})}" class="btn">Edit</a></td>
+
+    </tbody>
+  </table>
+
+</div>
+<div ></div>
+</body>
+</html>
+<script>
+
+ $('#search-term').on('keyup', function() {
+    var keyword = $(this).val();
+    var masterid = $('#masterid').val();
+    $.ajax({
+        url: '/master/search',
+        type: 'get',
+        data: {
+         masterid: masterid,
+        keyword: keyword
+
+        },
+        success: function(html) {
+         $('#search-results').html(html);
+
+        }
+    });
+});
+
+</script>

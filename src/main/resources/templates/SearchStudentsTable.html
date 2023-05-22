@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <meta charset="UTF-8">
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
+  <link th:href="@{/css/search.css}" rel="stylesheet" />
+    <title>Title</title>
+</head>
+<body>
+<div class="search-container">
+<form class="searchform" th:action="@{/master/search}" th:method="get">
+
+  <input placeholder="Search Name Here ..." type="text" id="keyword" name="keyword">
+  <input type="hidden" id="masterid" name="masterid" th:value="${master.masterID}"  />
+
+</form>
+</div>
+<table id="search-results">
+
+  <tbody >
+  <tr th:each="student:${students}">
+
+  </tr>
+  </tbody>
+</table>
+
+<script>
+ $('#keyword').on('keyup', function() {
+    var keyword = $(this).val();
+    var masterid = $('#masterid').val();
+    $.ajax({
+        url: '/master/search',
+        type: 'get',
+        data: {
+         masterid: masterid,
+        keyword: keyword
+
+        },
+        success: function(html) {
+         $('#search-results').html(html);
+
+        }
+    });
+});
+
+
+</script>
+</body>
+</html>

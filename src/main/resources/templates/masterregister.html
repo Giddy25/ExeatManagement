@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Master Register</title>
+        <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.css}" type="text/css">
+        <!--        <script th:src="@{/js/jquery.min.js}" type="javascript/text"></script>-->
+
+        <script th:src="@{/js/bootstrap.bundle.min.js}" type="javascript/text"></script>
+
+        <script th:src="@{/js/all.min.js} " type="javascript/text"></script>
+        <style>
+
+
+
+            .container{
+                width:
+                    500px;
+
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+                <h1 class="navbar-brand"  style="font-size:200%"><img src="images/logo.png" th:src="@{/images/logo.png}" width="50" height="50" alt="alt"/>
+                    Student Exeat System
+
+                </h1>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#show" aria-controls="show" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class=" navbar-toggler-icon"></span>
+
+                </button>
+                <div class="collapse navbar-collapse" id="show">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class=" nav-item active"  >
+                            <a class="nav-link" href="#"> item one</a>
+                        </li>
+
+                        <li class=" nav-item">
+                            <a class="nav-link" href="#">item two</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </nav><br>
+        <div class="container" >
+            <h1 class="text-muted">MASTER REGISTRATION</h1>
+
+            <form method="post" th:action="@{/masterregister}" th:object="${masterDetails}">
+
+                <input type="text" placeholder="First Name"  required autofocus  name="firstName" class="form-control"/><br>
+                <input type="text"  placeholder="Last Name"  required autofocus   name="lastName" class="form-control"/><br>
+                <br>
+                <input type="text"  placeholder="PHONE NUMBER"  required autofocus   name="MasterPhoneNumber" class="form-control"/><br>
+                <!--                <input type="text"  placeholder="House"  required autofocus   th:field="*{house}" class="form-control"/><br>-->
+<!--                <span th:text="${#dates}"></span>-->
+                <input type="email"  placeholder="Email"  required autofocus name="email" class="form-control"/><br>
+                <label value="" class=" form-label" style="color: green">select your house </label>
+
+                <select class=" form-select-sm" name="house">
+
+                    <option name="house" th:each="house:${houses}" th:text="${house.houseName}" th:value="${house.houseID}">House</option>
+
+
+                </select><br><br>
+                <input type="password"  placeholder="Password"  required autofocus  name="password" class="form-control"/><br>
+                <input type="submit" name="submit" value="Register" class=" btn btn-success"/>
+
+            </form>
+
+
+
+        </div>
+
+
+    </body>
+</html>

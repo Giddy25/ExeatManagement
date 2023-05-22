@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link th:href="@{/css/cardstyle.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/popup.js}"></script>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <title>Document</title>
+    <style>
+      #image-label {
+      cursor: pointer;
+      }
+
+      #image-preview {
+
+      width: 160px;
+      height: 160px;
+      margin-top: 12px;
+      margin-left: 80px;
+      border-radius: 50%;
+
+      border: 4px solid #ddd;
+      background-size: cover;
+      background-position: center;
+      }
+
+      #image-preview:hover {
+      opacity: 0.7;
+      cursor: pointer;
+      }
+       #uploadButton {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove border */
+    color: white; /* White text */
+    margin:10px auto;
+    padding: 12px 24px; /* Add some padding */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make the button a block element */
+    font-size: 16px; /* Increase font size */
+    margin-top: 10px; /* Add some space above the button */
+    cursor: pointer; /* Change cursor on hover */
+  }
+
+  #uploadButton:hover {
+    background-color: #3e8e41; /* Darker green on hover */
+  }
+      </style>
+</head>
+<body>
+<tr th:each="student:${students}"></tr>
+<div class="ExeatContainer">
+    <div class="wrapper">
+        <form th:action="@{/master/UploadStudentPic/{studentNumber}(studentNumber=${student.studentNumber})}" th:method="post" th:object="${student}" enctype="multipart/form-data">
+            <input type="file" id="image-upload" name="image-upload" style="display:none" onchange="previewImage()">
+
+            <input type="submit" value="Upload" id="uploadButton" style="display:none">
+        </form>
+
+
+        <div class="content">
+            <img id="image-preview" style="display:none">
+            <label for="image-upload" id="image-label"><img th:if="${student.imagePath}" th:src="@{'/' + ${student.imagePath}}" alt="Student Photo"><img th:unless="${student.imagePath}" src="/images/thumbNail2.jpg"  style="border: 2px solid #ccc;" alt="Student Photo"/></label>
+            <h2><tr th:text="${student.StudentName}"></h2>
+            <br/>
+
+            <p><tr th:text="${studentHouse}"></p>
+            <p><tr th:text="${student.studentClass}"></tr></p>
+            <div class="footer">
+                <div>
+                    <p class="num">8</p>
+                    <p>Exeat Count</p>
+                </div>
+                <div>
+                    <p class="num">3</p>
+                    <p>Reported on time</p>
+                </div>
+
+            </div>
+            <div>
+                <button class="ExeatCard" onclick="openForm()" role="button">
+                    Issue Exeat
+                </button>
+            </div>
+            <div class="form-popup" id="myForm">
+                <form class="form-container" th:action="@{/master/IssueEmergencyExeat}" method="post"  th:object="${exeat}">
+                    <tr th:each="student:${students}"></tr>
+                    <h3>EXEAT FORM</h3>
+                    <div>
+                        <input
+
+                                type="hidden"
+                                name="studentNumber"
+                                th:value="${student.studentNumber}"
+                                required />
+                        <input
+
+                                type="hidden"
+                                name="studentName"
+                                th:value="${student.studentName}"
+                                required />
+
+                        <input
+
+                                type="text"
+                                name="parentContact"
+                                th:value="${student.parentContact}"
+                                required />
+
+                        <input
+                                type="hidden"
+
+                                th:value="${master.getFullName}"
+                                th:name="issuedBy"
+                                required
+                        />
+                        <input
+                                type="text"
+
+                                th:value="${master.MasterPhoneNumber}"
+                                th:name="masterPhoneNumber"
+                                required
+                        />
+                        <input th:value="|${#strings.randomAlphanumeric(7)}|" th:name="generatedCode" type="hidden"/>
+
+                        <input type="hidden" th:value="0" th:name="hasReturned" />
+
+                        <input
+                                type="hidden"
+
+                                th:value="${student.studentClass}"
+                                th:name="studentClass"
+                                required
+                        />
+
+
+
+                        <label ><b>Purpose</b></label>
+                        <input
+                                type="text"
+                                placeholder="Enter Purpose"
+                                th:name="Purpose"
+                                required
+                        />
+                        <label ><b>Destination</b></label>
+                        <input
+                                type="text"
+                                placeholder="Enter Destination"
+                                th:name="destination"
+                                required
+                        />
+                        <input type="text" th:value="${dateOUT}" th:name="dateOUT"/>
+
+
+                        <label ><b> Date TO RETURN</b></label>
+                        <input
+                                class="form-control"
+
+                                type="datetime"
+                                th:name="dateToReturn"
+                                size="500"
+                                required
+                        />
+                    </div>
+
+                    <button type="submit" class="btn1">submit</button>
+                    <button type="button" class="btn cancel" onclick="closeForm()">
+                        Close
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+  function previewImage() {
+    var preview = document.querySelector('#image-preview');
+    var fileInput = document.querySelector('#image-upload');
+    var label = document.querySelector('#image-label');
+var uploadButton = document.getElementById('uploadButton');
+    uploadButton.style.display = 'block';
+    if (fileInput.files && fileInput.files[0]) {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+            uploadButton.style.display = 'block';
+            label.style.display = 'none';
+            preview.onclick = function(){
+            fileInput.value='';
+            preview.style.display = 'none';
+            uploadButton.style.display = 'none';
+            label.style.display = 'block';
+
+        };
+        }
+        reader.readAsDataURL(fileInput.files[0]);
+    } else {
+        preview.src = '';
+        preview.style.display = 'none';
+        label.style.display = 'block';
+        uploadButton.style.display = 'none';
+    }
+}
+</script>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link th:href="@{/css/loginstyle.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/sweetalert2.all.min.js}"></script>
+
+
+    <title>MASTER LOGIN</title>
+</head>
+<body>
+<div class="container">
+    <div class="title">LOGIN</div>
+    <div class="content">
+        <form  th:action="@{/master/login}" method="post">
+
+            <input type="hidden" id="status" th:value="${status}">
+
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Email</span>
+                    <input type="text" placeholder="Enter your email"  name="username" id="email" required />
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Password</span>
+                    <input type="text" placeholder="Enter your password" id="password" name="password" required />
+                </div>
+            </div>
+
+            <div class="button">
+                <input type="submit" value="LOGIN" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+</div>
+
+<script th:if="${param.error}" type="text/javascript">
+        Swal.fire({
+  position: 'center',
+  icon: 'error',
+  title: 'Error',
+text: 'Invalid email or Password',
+  showConfirmButton: false,
+  timer: 1500
+
+})
+
+    </script>
+
+</body>
+
+</html>

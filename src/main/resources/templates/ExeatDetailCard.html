@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!---Custom Css File!--->
+  <link th:href="@{/css/DetailCardstyle.css}" rel="stylesheet" />
+</head>
+<body>
+<section  class="main">
+  <div class="profile-card">
+    <div class="image">
+      <img class="profile-pic" th:if="${student.imagePath}" th:src="@{'/' + ${student.imagePath}}" alt="Student Photo"><img class="profile-pic" th:unless="${student.imagePath}" src="/images/thumbNail2.jpg"  style="border: 2px solid #ccc;" alt="Student Photo"/></label>
+    </div>
+    <div class="data">
+      <h2><span th:text="${Exeat.StudentName}"></span></h2>
+      <span th:text="${Exeat.studentNumber}"></span>
+      <span th:text="${Exeat.studentClass}"></span>
+    </div>
+    <div class="row">
+      <div class="info">
+        <h3>Destination</h3>
+        <span th:text="${Exeat.destination}"></span>
+      </div>
+      <div class="info">
+        <h3>Purpose</h3>
+        <span th:text="${Exeat.purpose}"></span>
+      </div>
+      <div class="info">
+        <h3>Code</h3>
+        <span th:text="${Exeat.generatedCode}"></span>
+      </div>
+
+    </div>
+
+      <div class="row2">
+        <div class="info">
+          <h3>Issued Date</h3>
+          <span th:text="${Exeat.dateOUT}"></span>
+        </div>
+
+    </div>
+    <div class="row2">
+
+        <div class="info">
+          <h3>Date To Return</h3>
+          <span th:text="${formattedDateToReturn}"></span>
+        </div>
+
+
+    </div>
+    <div class="row2">
+      <div class="info">
+        <h3>Date Returned</h3>
+        <span th:text="${Exeat.dateReturned}"></span>
+      </div>
+
+    </div>
+    <div class="row2">
+      <div class="info">
+        <h3>Time Remaining</h3>
+        <span th:text="${Exeat.TimeRemain.toDays() + ' days, ' + Exeat.TimeRemain.toHoursPart() + 'hours, ' +Exeat.TimeRemain.toMinutesPart() + 'minutes'}"></span>
+
+
+    </div>
+    </div>
+    <div class="row2">
+      <div class="info">
+        <h3>Returned</h3>
+        <span th:text="${Exeat.hasReturned}"></span>
+      </div>
+      <div class="info">
+        <h3>Issued By</h3>
+        <span th:text="${Exeat.issuedBy}"></span>
+      </div>
+
+    </div>
+  </div>
+</section>
+</body>
+</html>
